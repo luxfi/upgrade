@@ -1,6 +1,6 @@
 module github.com/luxfi/upgrade
 
-go 1.26
+go 1.26.1
 
 require (
 	github.com/luxfi/ids v1.2.9
