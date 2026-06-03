@@ -39,7 +39,7 @@ var (
 		// Ref: https://subnets.lux.network/x-chain/block/0
 		CortinaXChainStopVertexID: ids.FromStringOrPanic("jrGWDh5Po9FMj54depyunNixpia5PN4aAYxfmNzU8n752Rjga"),
 		DurangoTime:               time.Date(2025, time.March, 6, 16, 0, 0, 0, time.UTC),
-		EtnaTime:                  time.Date(2025, time.April, 8, 15, 0, 0, 0, time.UTC),
+		QuasarTime:                time.Date(2025, time.April, 8, 15, 0, 0, 0, time.UTC),
 		FortunaTime:               time.Date(2025, time.December, 16, 17, 0, 0, 0, time.UTC),
 		GraniteTime:               UnscheduledActivationTime,
 		GraniteEpochDuration:      5 * time.Minute,
@@ -62,7 +62,7 @@ var (
 		// Ref: https://subnets-test.lux.network/x-chain/block/0
 		CortinaXChainStopVertexID: ids.FromStringOrPanic("2D1cmbiG36BqQMRyHt4kFhWarmatA1ighSpND3FeFgz3vFVtCZ"),
 		DurangoTime:               time.Date(2025, time.February, 13, 16, 0, 0, 0, time.UTC),
-		EtnaTime:                  time.Date(2025, time.March, 13, 15, 0, 0, 0, time.UTC),
+		QuasarTime:                time.Date(2025, time.March, 13, 15, 0, 0, 0, time.UTC),
 		FortunaTime:               time.Date(2025, time.November, 25, 16, 0, 0, 0, time.UTC),
 		GraniteTime:               UnscheduledActivationTime,
 		GraniteEpochDuration:      5 * time.Minute,
@@ -81,7 +81,7 @@ var (
 		CortinaTime:                  InitiallyActiveTime,
 		CortinaXChainStopVertexID:    ids.Empty,
 		DurangoTime:                  InitiallyActiveTime,
-		EtnaTime:                     InitiallyActiveTime,
+		QuasarTime:                   InitiallyActiveTime,
 		FortunaTime:                  InitiallyActiveTime,
 		GraniteTime:                  UnscheduledActivationTime,
 		GraniteEpochDuration:         30 * time.Second,
@@ -104,7 +104,7 @@ type Config struct {
 	CortinaTime                  time.Time     `json:"cortinaTime"`
 	CortinaXChainStopVertexID    ids.ID        `json:"cortinaXChainStopVertexID"`
 	DurangoTime                  time.Time     `json:"durangoTime"`
-	EtnaTime                     time.Time     `json:"etnaTime"`
+	QuasarTime                   time.Time     `json:"quasarTime"`
 	FortunaTime                  time.Time     `json:"fortunaTime"`
 	GraniteTime                  time.Time     `json:"graniteTime"`
 	GraniteEpochDuration         time.Duration `json:"graniteEpochDuration"`
@@ -123,7 +123,7 @@ func (c *Config) Validate() error {
 		c.BanffTime,
 		c.CortinaTime,
 		c.DurangoTime,
-		c.EtnaTime,
+		c.QuasarTime,
 		c.FortunaTime,
 		c.GraniteTime,
 	}
@@ -185,8 +185,8 @@ func (c *Config) IsDurangoActivated(t time.Time) bool {
 	return !t.Before(c.DurangoTime)
 }
 
-func (c *Config) IsEtnaActivated(t time.Time) bool {
-	return !t.Before(c.EtnaTime)
+func (c *Config) IsQuasarActivated(t time.Time) bool {
+	return !t.Before(c.QuasarTime)
 }
 
 func (c *Config) IsFortunaActivated(t time.Time) bool {
