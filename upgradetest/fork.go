@@ -16,7 +16,7 @@ const (
 	Banff
 	Cortina
 	Durango
-	Etna
+	Quasar
 	Fortuna
 	Granite
 
@@ -32,8 +32,8 @@ func (f Fork) String() string {
 		return "Granite"
 	case Fortuna:
 		return "Fortuna"
-	case Etna:
-		return "Etna"
+	case Quasar:
+		return "Quasar"
 	case Durango:
 		return "Durango"
 	case Cortina:
