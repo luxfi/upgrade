@@ -39,8 +39,8 @@ func SetTimesTo(c *upgrade.Config, fork Fork, upgradeTime time.Time) {
 	case Fortuna:
 		c.FortunaTime = upgradeTime
 		fallthrough
-	case Etna:
-		c.EtnaTime = upgradeTime
+	case Quasar:
+		c.QuasarTime = upgradeTime
 		fallthrough
 	case Durango:
 		c.DurangoTime = upgradeTime
