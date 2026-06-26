@@ -21,49 +21,58 @@ var (
 	InitiallyActiveTime       = time.Date(2020, time.December, 5, 5, 0, 0, 0, time.UTC)
 	UnscheduledActivationTime = time.Date(9999, time.December, 1, 0, 0, 0, 0, time.UTC)
 
+	// Lux is a fresh-genesis network: every Avalanche-inherited fork gate
+	// (ApricotPhase1-6, Banff, Cortina, Durango) and the now-historical
+	// Lux-native gates (Quasar, Fortuna) are collapsed to InitiallyActiveTime,
+	// so each is active from block 0. Because the historical dates are all in
+	// the past, a genesis-active timestamp is behaviorally identical for any
+	// live block. Granite stays UnscheduledActivationTime: it is a not-yet-live
+	// Lux upgrade, not Avalanche legacy, so activating it is a consensus
+	// decision rather than a mechanical de-Avalanche collapse. Per-network
+	// VALUES (X-Chain stop vertex, epoch duration) are preserved; only the gate
+	// TIMES collapse.
 	Mainnet = Config{
-		ApricotPhase1Time:            time.Date(2021, time.March, 31, 14, 0, 0, 0, time.UTC),
-		ApricotPhase2Time:            time.Date(2021, time.May, 10, 11, 0, 0, 0, time.UTC),
-		ApricotPhase3Time:            time.Date(2021, time.August, 24, 14, 0, 0, 0, time.UTC),
-		ApricotPhase4Time:            time.Date(2021, time.September, 22, 21, 0, 0, 0, time.UTC),
-		ApricotPhase4MinPChainHeight: 793005,
-		ApricotPhase5Time:            time.Date(2021, time.December, 2, 18, 0, 0, 0, time.UTC),
-		ApricotPhasePre6Time:         time.Date(2022, time.September, 5, 1, 30, 0, 0, time.UTC),
-		ApricotPhase6Time:            time.Date(2022, time.September, 6, 20, 0, 0, 0, time.UTC),
-		ApricotPhasePost6Time:        time.Date(2022, time.September, 7, 3, 0, 0, 0, time.UTC),
-		BanffTime:                    time.Date(2022, time.October, 18, 16, 0, 0, 0, time.UTC),
-		CortinaTime:                  time.Date(2023, time.April, 25, 15, 0, 0, 0, time.UTC),
-		// The mainnet stop vertex is well known. It can be verified on any
-		// fully synced node by looking at the parentID of the genesis block.
-		//
-		// Ref: https://subnets.lux.network/x-chain/block/0
+		ApricotPhase1Time:            InitiallyActiveTime,
+		ApricotPhase2Time:            InitiallyActiveTime,
+		ApricotPhase3Time:            InitiallyActiveTime,
+		ApricotPhase4Time:            InitiallyActiveTime,
+		ApricotPhase4MinPChainHeight: 0,
+		ApricotPhase5Time:            InitiallyActiveTime,
+		ApricotPhasePre6Time:         InitiallyActiveTime,
+		ApricotPhase6Time:            InitiallyActiveTime,
+		ApricotPhasePost6Time:        InitiallyActiveTime,
+		BanffTime:                    InitiallyActiveTime,
+		CortinaTime:                  InitiallyActiveTime,
+		// X-Chain stop vertex: a per-network genesis VALUE (pins X-Chain
+		// genesis state at boot), not a gate. Preserved as-is.
 		CortinaXChainStopVertexID: ids.FromStringOrPanic("jrGWDh5Po9FMj54depyunNixpia5PN4aAYxfmNzU8n752Rjga"),
-		DurangoTime:               time.Date(2025, time.March, 6, 16, 0, 0, 0, time.UTC),
-		QuasarTime:                time.Date(2025, time.April, 8, 15, 0, 0, 0, time.UTC),
-		FortunaTime:               time.Date(2025, time.December, 16, 17, 0, 0, 0, time.UTC),
+		DurangoTime:               InitiallyActiveTime,
+		QuasarTime:                InitiallyActiveTime,
+		FortunaTime:               InitiallyActiveTime,
 		GraniteTime:               UnscheduledActivationTime,
 		GraniteEpochDuration:      5 * time.Minute,
 	}
+	// Testnet collapses identically to Mainnet (see above): all Avalanche-
+	// inherited and historical Lux gate TIMES become genesis-active; Granite
+	// stays future-gated; the X-Chain stop vertex and epoch duration are
+	// preserved as per-network values.
 	Testnet = Config{
-		ApricotPhase1Time:            time.Date(2021, time.March, 26, 14, 0, 0, 0, time.UTC),
-		ApricotPhase2Time:            time.Date(2021, time.May, 5, 14, 0, 0, 0, time.UTC),
-		ApricotPhase3Time:            time.Date(2021, time.August, 16, 19, 0, 0, 0, time.UTC),
-		ApricotPhase4Time:            time.Date(2021, time.September, 16, 21, 0, 0, 0, time.UTC),
-		ApricotPhase4MinPChainHeight: 47437,
-		ApricotPhase5Time:            time.Date(2021, time.November, 24, 15, 0, 0, 0, time.UTC),
-		ApricotPhasePre6Time:         time.Date(2022, time.September, 6, 20, 0, 0, 0, time.UTC),
-		ApricotPhase6Time:            time.Date(2022, time.September, 6, 20, 0, 0, 0, time.UTC),
-		ApricotPhasePost6Time:        time.Date(2022, time.September, 7, 6, 0, 0, 0, time.UTC),
-		BanffTime:                    time.Date(2022, time.October, 3, 14, 0, 0, 0, time.UTC),
-		CortinaTime:                  time.Date(2023, time.April, 6, 15, 0, 0, 0, time.UTC),
-		// The testnet stop vertex is well known. It can be verified on any fully
-		// synced node by looking at the parentID of the genesis block.
-		//
-		// Ref: https://subnets-test.lux.network/x-chain/block/0
+		ApricotPhase1Time:            InitiallyActiveTime,
+		ApricotPhase2Time:            InitiallyActiveTime,
+		ApricotPhase3Time:            InitiallyActiveTime,
+		ApricotPhase4Time:            InitiallyActiveTime,
+		ApricotPhase4MinPChainHeight: 0,
+		ApricotPhase5Time:            InitiallyActiveTime,
+		ApricotPhasePre6Time:         InitiallyActiveTime,
+		ApricotPhase6Time:            InitiallyActiveTime,
+		ApricotPhasePost6Time:        InitiallyActiveTime,
+		BanffTime:                    InitiallyActiveTime,
+		CortinaTime:                  InitiallyActiveTime,
+		// X-Chain stop vertex: per-network genesis VALUE, not a gate.
 		CortinaXChainStopVertexID: ids.FromStringOrPanic("2D1cmbiG36BqQMRyHt4kFhWarmatA1ighSpND3FeFgz3vFVtCZ"),
-		DurangoTime:               time.Date(2025, time.February, 13, 16, 0, 0, 0, time.UTC),
-		QuasarTime:                time.Date(2025, time.March, 13, 15, 0, 0, 0, time.UTC),
-		FortunaTime:               time.Date(2025, time.November, 25, 16, 0, 0, 0, time.UTC),
+		DurangoTime:               InitiallyActiveTime,
+		QuasarTime:                InitiallyActiveTime,
+		FortunaTime:               InitiallyActiveTime,
 		GraniteTime:               UnscheduledActivationTime,
 		GraniteEpochDuration:      5 * time.Minute,
 	}
